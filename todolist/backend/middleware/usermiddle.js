@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken');
+const zod = require('zod');
+
 
 function signupmiddle()
 {
