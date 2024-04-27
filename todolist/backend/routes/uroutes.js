@@ -1,10 +1,10 @@
 const {Router} = require('express');
 const router = Router();
-const { signupmiddle , signinmiddle} = require('../middleware/usermiddle')
+const {JWT} = require('../config');
 const { User,todata } = require('../db/dbschema');
 const jwt = require('jsonwebtoken');
 
-router.post('/signup',signupmiddle,async(req,res)=>{
+router.post('/signup',async(req,res)=>{
 
     // creating signup logic
 
@@ -12,19 +12,35 @@ router.post('/signup',signupmiddle,async(req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
 
-    await User.create({
-        email,
-        username,
-        password
+    // Checking if the user already exists
+    // if already exist give the message otherwise store in database 
+
+    const fuser = User.find({
+        email
     })
 
-    res.json({
-        msg:"Account created Successfully"
-    })
+    if(fuser)
+        {
+            res.json({
+                msg:'User already exist'
+            })
+        }
+    else
+    {
+        await User.create({
+            email,
+            username,
+            password
+        })
+        
+        res.json({
+            msg:"Account created Successfully"
+        })
 
+    }
 })
 
-router.post('/signin',signinmiddle,async(req,res)=>{
+router.post('/signin',async(req,res)=>{
 
     // some more validation need to be done
     // like if the user exist and if so is the password correct
@@ -34,12 +50,33 @@ router.post('/signin',signinmiddle,async(req,res)=>{
     const password = req.body.password;
 
     const user = await User.find({
-        username,
-        password
+        email,
+        password,
+        username
     })
     if(user)
     {
+        const passcompare = password=== user.password;
+        if(passcompare)
+        {
+            const token = jwt.sign
+            ({
+                username
+            },JWT)
 
+            res.json
+            ({
+                token
+            })
+
+        }   
+        else
+        {
+            res.json
+            ({
+                msg:"Invalid Credentials"
+            })
+        }
     }
     else
     {
