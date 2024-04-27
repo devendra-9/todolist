@@ -1,9 +1,13 @@
 const {Router} = require('express');
+const express = require('express');
 const router = Router();
 const {JWT} = require('../config');
 const {fetchuser} = require('../middleware/usermiddle')
 const { User,todata } = require('../db/dbschema');
 const jwt = require('jsonwebtoken');
+const app = express();
+
+console.log('reachedddd here')
 
 router.post('/signup',async(req,res)=>{
 
@@ -12,11 +16,11 @@ router.post('/signup',async(req,res)=>{
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
-
+    console.log("reached signup page successfully");
     // Checking if the user already exists
     // if already exist give the message otherwise store in database 
 
-    const fuser = User.find({
+    const fuser = await User.findOne({
         email
     })
 
@@ -48,18 +52,18 @@ router.post('/signup',async(req,res)=>{
 })
 
 router.post('/signin',async(req,res)=>{
-
     // some more validation need to be done
     // like if the user exist and if so is the password correct
     // creating signup logic
 
+    console.log("reached signin page successfully");
+
     const email = req.body.email;
     const password = req.body.password;
 
-    const user = await User.find({
+    const user = await User.findOne({
         email,
-        password,
-        username
+        password
     })
     if(user)
     {
@@ -98,7 +102,9 @@ router.post('/signin',async(req,res)=>{
 
 router.post('/additem',fetchuser,(req,res)=>{
 
-    
+res.send({
+    ms:'hello'
+})
 
 })
 

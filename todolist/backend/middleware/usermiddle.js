@@ -15,7 +15,7 @@ function fetchuser(req,res,next)
     const decodevalue = jwt.verify(jwttoken,JWT);
     if(decodevalue.email)
     {
-        req.email = decodevalue.email;
+        // req.email = decodevalue.email;
         next();
     }    
     else
