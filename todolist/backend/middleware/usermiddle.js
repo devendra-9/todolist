@@ -5,19 +5,26 @@ const zod = require('zod');
 
 
 
-function signupmiddle(req,res,next)
+function fetchuser(req,res,next)
 {
-    // tring validation 
-    const email = zod.string.email();
-    const password = zod.string.min(6);
+   // validating the user 
+   // this is a middleware 
     const token = req.header.authorization;
-    const words = token.split("");
+    const words = token.split(" ");
     const jwttoken = words[1];
-    
-}
-function signinmiddle(req,res,next)
-{
-    console.log("reached on signin middleware");
+    const decodevalue = jwt.verify(jwttoken,JWT);
+    if(decodevalue.email)
+    {
+        req.email = decodevalue.email;
+        next();
+    }    
+    else
+    {
+        res.json({
+            msg:"Not authenticated"
+        })
+    }
+
 }
 
-module.exports = { signinmiddle,signupmiddle};
+module.exports = {fetchuser};

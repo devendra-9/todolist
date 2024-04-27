@@ -1,6 +1,7 @@
 const {Router} = require('express');
 const router = Router();
 const {JWT} = require('../config');
+const {fetchuser} = require('../middleware/usermiddle')
 const { User,todata } = require('../db/dbschema');
 const jwt = require('jsonwebtoken');
 
@@ -32,6 +33,12 @@ router.post('/signup',async(req,res)=>{
             username,
             password
         })
+
+        await todata.create
+        ({
+            email,
+            username
+        })
         
         res.json({
             msg:"Account created Successfully"
@@ -61,7 +68,7 @@ router.post('/signin',async(req,res)=>{
         {
             const token = jwt.sign
             ({
-                username
+                email
             },JWT)
 
             res.json
@@ -86,4 +93,31 @@ router.post('/signin',async(req,res)=>{
     }
     
 })
+
+// creating to add data to todo list
+
+router.post('/additem',fetchuser,(req,res)=>{
+
+    
+
+})
+
+// creating end point to delete data to endpoint
+
+router.post('/deleteitem',fetchuser,(req,res)=>{
+
+})
+
+// creating endpoint to udate data to end point
+
+router.post('/update',fetchuser,(req,res)=>{
+
+})
+
+// display all items 
+
+router.get('/display',fetchuser,(req,res)=>{
+
+})
+
 module.exports = router;

@@ -19,7 +19,9 @@ const UserSchema = new mongoose.Schema
 
 const TodoDataSchema = new mongoose.Schema
 ({
+    id:Number,
     email : String,
+    username:String,
     list : String,
 })
 
