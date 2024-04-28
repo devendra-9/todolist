@@ -1,27 +1,32 @@
 import {React} from 'react';
-import {Routes, Route} from 'react-router-dom'
-import Auth from './auth/auth';
-import Signin from './auth/signin';
-import Signup from './auth/signup';
+import {Router ,Routes, Route} from 'react-router-dom';
+import Authz from "./auth/authorisation";
+import Signin from "./auth/forms/signin";
+import Signup from "./auth/forms/signup"; 
 import Rootlayout from './rootlayout/root'
 import Home from './pages/home' 
 function App() {
 
   return (
-    <div>
+    <main>
       <Routes>
-      {/* Public Route */}
-        <Route element={< Auth />}>
-          <Route path='/sigin' element = {< Signin />}/>
-          <Route path='/sigup' element = {< Signup />}/>
 
+
+        <Route element = {<Authz/>}>
+      {/* Public Route */}
+          <Route path='/signin' element = {< Signin />}/>
+          <Route path='/signup' element = {< Signup />}/>
         </Route>
+
+
+        <Route element={<Rootlayout />}>
         {/* Private Route */}
-        <Route element={< Rootlayout />}>
-          <Route path='/' element={< Home />} />
+          <Route index element={< Home />} />
         </Route>
+
+
       </Routes>
-    </div>
+    </main>
   )
 }
 
