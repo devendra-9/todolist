@@ -61,15 +61,17 @@ router.post('/signin',async(req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
 
-    const user = await User.findOne({
-        email,
-        password
+    const users = await User.findOne({
+        email
     })
-    if(user)
+
+
+    if(users)
     {
-        const passcompare = password=== user.password;
+        console.log("successfully logged in")
+        const passcompare = password === users.password;
         if(passcompare)
-        {
+        {  
             const token = jwt.sign
             ({
                 email
@@ -77,7 +79,8 @@ router.post('/signin',async(req,res)=>{
 
             res.json
             ({
-                token
+                success:true,
+                msg:token
             })
 
         }   
@@ -85,13 +88,15 @@ router.post('/signin',async(req,res)=>{
         {
             res.json
             ({
-                msg:"Invalid Credentials"
+                success:false,
+                msg: "password incorrect"
             })
         }
     }
     else
     {
         res.json({
+            success:false,
             msg:"No user found With the above credentials"
         })
     }

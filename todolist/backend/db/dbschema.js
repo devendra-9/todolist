@@ -16,8 +16,8 @@ const UserSchema = new mongoose.Schema
     // schemas defination here 
 
     email : String,
-    username:String,
-    password:String,
+    username : String,
+    password : String,
 })
 
 // creating schemas for the todolist data
