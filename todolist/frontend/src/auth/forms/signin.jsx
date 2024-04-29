@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './css/signn.css'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate,Link } from 'react-router-dom';
 
 const signin = () => {
   const [formdata, setformdata] = useState({
@@ -45,7 +45,7 @@ const signin = () => {
         {
           localStorage.setItem('auth-token',responsedata.token)
           console.log("logged in successful");
-          navigate('/signup');
+          navigate('/home');
         }
         else
         {
@@ -66,6 +66,7 @@ const signin = () => {
       <div className="signin-form">
         <div className="signin-formdetails">
           <p id="error"> </p>
+          <h2>TODO LIST</h2>
           <h1>Sign in</h1>
           <label>Email</label><br/>
           <input id="e1`" value={formdata.email} onChange={changehandler} name='email' type="text" placeholder='Email'/><br /><br />
@@ -74,7 +75,7 @@ const signin = () => {
           <button onClick={()=>login()}>Sign in </button>
           <div className='signin-links'>
             <p>Forgot password</p>
-            <p>Sign up</p>
+            <Link to='/signup' style={{textDecoration:'none'}}><p>Sign up</p></Link>
           </div>
         </div>
       </div>
