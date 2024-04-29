@@ -52,7 +52,7 @@ const signin = () => {
           // alert(responsedata.error)
           document.getElementById("error").innerHTML="Invalid Credentials";
         }
-      
+      console.log(responsedata)
     }
    
     

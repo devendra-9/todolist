@@ -46,12 +46,13 @@ const signup = () => {
         {
           localStorage.setItem('auth-token',responsedata.token)
           console.log("logged in successful");
+          alert("Welcome!! Now you will be forwarded to login page")
           navigate('/');
         }
         else
         {
           // alert(responsedata.error)
-          document.getElementById("error").innerHTML="Invalid Credentials";
+          document.getElementById("error").innerHTML="User Already exist, Please Login";
         }
       
     }

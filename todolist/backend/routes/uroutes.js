@@ -27,6 +27,7 @@ router.post('/signup',async(req,res)=>{
     if(fuser)
         {
             res.json({
+                success:false,
                 msg:'User already exist'
             })
         }
@@ -45,6 +46,7 @@ router.post('/signup',async(req,res)=>{
         })
         
         res.json({
+            success:true,
             msg:"Account created Successfully"
         })
 
@@ -82,6 +84,7 @@ router.post('/signin',async(req,res)=>{
                 success:true,
                 msg:token
             })
+            
 
         }   
         else
@@ -102,6 +105,11 @@ router.post('/signin',async(req,res)=>{
     }
     
 })
+
+// end point for sign out
+
+
+
 
 // creating to add data to todo list
 
