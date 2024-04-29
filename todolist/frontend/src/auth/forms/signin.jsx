@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import './css/signn.css'
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const signin = () => {
   const [formdata, setformdata] = useState({
     email:"",
     password:""
   })
+  const navigate = useNavigate();
 
   const changehandler=(e)=>
   {
@@ -44,7 +45,7 @@ const signin = () => {
         {
           localStorage.setItem('auth-token',responsedata.token)
           console.log("logged in successful");
-          <Navigate to="/signup" />
+          navigate('/signup');
         }
         else
         {
