@@ -2,7 +2,7 @@ import React from 'react'
 
 const datalist = () => {
   return (
-    <div>datalist</div>
+    <div style={{color:'white'}}>datalist</div>
   )
 }
 

@@ -8,7 +8,6 @@ const jwt = require('jsonwebtoken');
 const app = express();
 
 console.log('reachedddd here')
-
 router.post('/signup',async(req,res)=>{
 
     // creating signup logic
@@ -79,12 +78,21 @@ router.post('/signin',async(req,res)=>{
                 email
             },JWT)
 
-            res.json
-            ({
-                success:true,
-                msg:token
-            })
+            // res.json
+            // ({
+            //     success:true,
+            //     msg:token
+            // })
             
+            res.status(200).cookie(email,token,{httpOnly:true,   
+                success:true
+            //secure:true,
+            // maxAge:1000,
+            // signed:true,
+            }).json({
+                success:true,
+                token
+            });
 
         }   
         else
@@ -105,9 +113,7 @@ router.post('/signin',async(req,res)=>{
     }
     
 })
-
 // end point for sign out
-
 
 
 

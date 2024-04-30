@@ -54,6 +54,8 @@ const signup = () => {
           // alert(responsedata.error)
           document.getElementById("error").innerHTML="User Already exist, Please Login";
         }
+
+      
       
     }
    
