@@ -46,7 +46,6 @@ const signin = () => {
           const stat = localStorage.setItem('auth-token',responsedata.token)
           console.log("logged in successful",responsedata);
           console.log(stat);
-          navigate('/home');
         }
         else
         {
