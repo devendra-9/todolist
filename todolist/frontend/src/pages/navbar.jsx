@@ -2,6 +2,12 @@ import React from 'react'
 import './css/navv.css'
 
 const navbar = () => {
+
+  function logout()
+  {
+    console.log("Reached logout button")
+  }
+
   return (
     <div className='navbar-main'>
       <div className="navbarlogo">
@@ -9,7 +15,7 @@ const navbar = () => {
       </div>
       <div className="navbutton">
         <button>Edit Profile</button>
-        <button>Logout</button>
+        <button onClick={()=>logout()}>Logout</button>
       </div>
     </div>
   )
