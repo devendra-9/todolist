@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './css/signn.css'
 import { Navigate, useNavigate,Link } from 'react-router-dom';
+import Root from '../../rootlayout/root';
 
 const signin = () => {
   const [formdata, setformdata] = useState({
@@ -46,13 +47,14 @@ const signin = () => {
           const stat = localStorage.setItem('auth-token',responsedata.token)
           console.log("logged in successful",responsedata);
           console.log(stat);
+          navigate("/home")
         }
         else
         {
           // alert(responsedata.error)
           document.getElementById("error").innerHTML="Invalid Credentials";
         }
-      console.log(responsedata)
+      console.log(responsedata.success)
     }
    
     

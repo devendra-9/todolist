@@ -4,10 +4,12 @@ const router = Router();
 const {JWT} = require('../config');
 const {fetchuser} = require('../middleware/usermiddle')
 const { User,todata } = require('../db/dbschema');
+const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const app = express();
+app.use(cookieParser()); 
+console.log('reachedddd here');
 
-console.log('reachedddd here')
 router.post('/signup',async(req,res)=>{
 
     // creating signup logic
@@ -61,7 +63,6 @@ router.post('/signin',async(req,res)=>{
 
     const email = req.body.email;
     const password = req.body.password;
-
     const users = await User.findOne({
         email
     })
@@ -74,9 +75,9 @@ router.post('/signin',async(req,res)=>{
         if(passcompare)
         {  
             const token = jwt.sign
-            ({
+            (
                 email
-            },JWT)
+            ,JWT)
 
             // res.json
             // ({
@@ -84,16 +85,19 @@ router.post('/signin',async(req,res)=>{
             //     msg:token
             // })
             
-            res.status(200).cookie(email,token,{httpOnly:true,   
-                success:true
-            //secure:true,
-            // maxAge:1000,
-            // signed:true,
-            }).json({
+            res.status(200);
+            res.cookie('token',token
+            // {httpOnly:true
+            // //secure:true,
+            // // maxAge:1000,
+            // // signed:true,
+            // }
+        )
+
+            res.json({
                 success:true,
                 token
             });
-
         }   
         else
         {
@@ -113,8 +117,27 @@ router.post('/signin',async(req,res)=>{
     }
     
 })
+
+// end point for get the payload
+
+router.get('/signin',(req,res)=>{
+    var token = req.body.auth-token;
+    console.log(token);
+})
+
+
 // end point for sign out
 
+router.get('/signinn',fetchuser,async (req,res)=>
+{
+    console.log("reached signnn");
+    let userdata = User.findOne({
+        email:req.user.email
+    });
+    res.json({
+        userdata
+    })
+})
 
 
 // creating to add data to todo list
@@ -144,5 +167,4 @@ router.post('/update',fetchuser,(req,res)=>{
 router.get('/display',fetchuser,(req,res)=>{
 
 })
-
 module.exports = router;

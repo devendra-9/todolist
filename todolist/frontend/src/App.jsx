@@ -13,12 +13,10 @@ function App() {
       {/* Public Route */}
           <Route path='/' element = {< Signin />}/>
           <Route path='/signup' element = {< Signup />}/>
-          <Route path='/user' element={< Root />} >
-            <Route path='home' element = {< Home />}/>
-          </Route>
+          {/* <Route path='/user' element={< Root />} > */}
+          <Route path='/home' element = {< Home />}/>
+          {/* </Route> */}
         </Route>
-
-
       </Routes>
     </main>
   )

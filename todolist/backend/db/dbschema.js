@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 
 // connect to schemsa
 
+
 const connstr = "mongodb+srv://admin:admin123@cluster0.cxvzrpo.mongodb.net/todolist"
-const conn = mongoose.connect(connstr);
+const conn = mongoose.connect(connstr,{useNewUrlParser : true, useUnifiedTopology: true});
 if(conn)
 {
     console.log("connection successful");
