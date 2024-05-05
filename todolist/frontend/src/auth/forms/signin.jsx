@@ -37,17 +37,18 @@ const signin = () => {
           Accept:'application/form-data',
           'Content-Type':'application/json',
         },
-        body:JSON.stringify(formdata)
+        body:JSON.stringify(formdata),
       })
       .then((response)=>response.json())
       .then((data)=>responsedata=data)
-
       if(responsedata.success)
         {
-          const stat = localStorage.setItem('auth-token',responsedata.token)
+          const stat = localStorage.setItem('token',responsedata['token']);
           console.log("logged in successful",responsedata);
-          console.log(stat);
+          console.log(`The cookie generated is ${responsedata['token']}`);
           navigate("/home")
+          const x = document.cookie = `token=${responsedata['token']}`;
+          console.log("the element from document",x)
         }
         else
         {

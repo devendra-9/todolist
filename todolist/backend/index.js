@@ -4,6 +4,8 @@ const bodyparser = require('body-parser');
 const userroute = require('./routes/uroutes');
 const cors = require('cors');
 const app = express();
+var LocalStorage = require('node-localstorage').LocalStorage;
+localStorage = new LocalStorage('./scratch');
 app.use(cookieParser());
 app.use(cors());
 app.use(bodyparser.json());

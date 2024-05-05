@@ -6,6 +6,7 @@ const {fetchuser} = require('../middleware/usermiddle')
 const { User,todata } = require('../db/dbschema');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
+const { json } = require('body-parser');
 const app = express();
 app.use(cookieParser()); 
 console.log('reachedddd here');
@@ -79,21 +80,22 @@ router.post('/signin',async(req,res)=>{
                 email
             ,JWT)
 
+            const x = localStorage.setItem("token1",token);
+
             // res.json
             // ({
             //     success:true,
             //     msg:token
             // })
             
-            res.status(200);
-            res.cookie('token',token
+            res.status(200)
+            res.cookie("cookie",token
             // {httpOnly:true
-            // //secure:true,
-            // // maxAge:1000,
-            // // signed:true,
+            // secure:process.env.NOD_ENV==="production",
+            // maxAge:1000,
+            // signed:true,
             // }
         )
-
             res.json({
                 success:true,
                 token
@@ -120,25 +122,22 @@ router.post('/signin',async(req,res)=>{
 
 // end point for get the payload
 
-router.get('/signin',(req,res)=>{
-    var token = req.body.auth-token;
-    console.log(token);
-})
-
-
-// end point for sign out
-
 router.get('/signinn',fetchuser,async (req,res)=>
-{
-    console.log("reached signnn");
-    let userdata = User.findOne({
-        email:req.user.email
-    });
-    res.json({
+{  
+    // console.log(localStorage.getItem('token1'))
+    // const token1 = req.headers.token;
+    console.log("reached signnn")
+    let userdata = await User.findOne({
+     email:req.email
+    })
+      res.json({
         userdata
     })
+    console.log(userdata)
+    console.log(userdata.email)
 })
 
+// end point for sign out
 
 // creating to add data to todo list
 
