@@ -25,7 +25,7 @@
 }
 .navbutton button
 {
-    width:auto;
+    width: 80px;
     background-color: rgb(9, 9, 9);
     border: 1px solid rgb(84, 81, 81);
     color: silver;
@@ -39,3 +39,21 @@
     background-color:rgb(36, 35, 35);
     cursor: pointer;
 }
+
+.b1
+{
+    min-width: 80px;
+    max-width: auto;
+    background-color: rgb(9, 9, 9);
+    border: 1px solid rgb(84, 81, 81);
+    color: silver;
+    border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    height: 50px;
+}
+ .b1:hover
+ {
+    background-color:rgb(36, 35, 35);
+    cursor: pointer;
+ }

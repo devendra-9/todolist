@@ -47,8 +47,8 @@ const signin = () => {
           console.log("logged in successful",responsedata);
           console.log(`The cookie generated is ${responsedata['token']}`);
           navigate("/home")
-          const x = document.cookie = `token=${responsedata['token']}`;
-          console.log("the element from document",x)
+          //const x = document.cookie = `token=${responsedata['token']}`;
+          // console.log("the element from document",x)
         }
         else
         {

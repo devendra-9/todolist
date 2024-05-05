@@ -50,7 +50,7 @@ const navbar = () => {
         <p>TODO LIST</p>
       </div>
       <div className="navbutton">
-        <button>{user.username}</button>
+        <button className='b1'>{user.username}</button>
         <button onClick={()=>logout()}>Logout</button>
       </div>
     </div>

@@ -19,19 +19,19 @@ const UserSchema = new mongoose.Schema
     email : String,
     username : String,
     password : String,
+    list:Object
 })
 
 // creating schemas for the todolist data
 
-const TodoDataSchema = new mongoose.Schema
-({
-    id:Number,
-    email : String,
-    username:String,
-    list : String,
-})
+// const TodoDataSchema = new mongoose.Schema
+// ({
+//     id:Number,
+//     email : String,
+//     username:String,
+//     list : Object,
+// })
 
 const User = mongoose.model('User',UserSchema);
-const todata = mongoose.model('todata',TodoDataSchema);
 
-module.exports = { User,todata}
+module.exports = { User}

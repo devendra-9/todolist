@@ -3,7 +3,7 @@ const express = require('express');
 const router = Router();
 const {JWT} = require('../config');
 const {fetchuser} = require('../middleware/usermiddle')
-const { User,todata } = require('../db/dbschema');
+const { User} = require('../db/dbschema');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const { json } = require('body-parser');
@@ -39,12 +39,6 @@ router.post('/signup',async(req,res)=>{
             email,
             username,
             password
-        })
-
-        await todata.create
-        ({
-            email,
-            username
         })
         
         res.json({
@@ -141,8 +135,10 @@ router.get('/signinn',fetchuser,async (req,res)=>
 
 // creating to add data to todo list
 
-router.post('/additem',fetchuser,(req,res)=>{
-
+router.post('/additem',fetchuser,async(req,res)=>{
+let user = await User.findOne({
+    email:req.email
+})
 res.send({
     ms:'hello'
 })
@@ -163,7 +159,12 @@ router.post('/update',fetchuser,(req,res)=>{
 
 // display all items 
 
-router.get('/display',fetchuser,(req,res)=>{
-
+router.get('/display',fetchuser,async(req,res)=>{
+    const userdata = await User.findOne({
+        email:req.email
+    })
+    res.json(
+        userdata.list
+    )
 })
 module.exports = router;
