@@ -3,7 +3,7 @@ const express = require('express');
 const router = Router();
 const {JWT} = require('../config');
 const {fetchuser} = require('../middleware/usermiddle')
-const { User} = require('../db/dbschema');
+const { User,todatas} = require('../db/dbschema');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const { json } = require('body-parser');
@@ -135,19 +135,41 @@ router.get('/signinn',fetchuser,async (req,res)=>
 
 // creating to add data to todo list
 
-router.post('/additem',fetchuser,async(req,res)=>{
+router.put('/additem',fetchuser,async(req,res)=>{
+
+    const list = req.body.list;
+
 let user = await User.findOne({
     email:req.email
 })
-res.send({
-    ms:'hello'
+email = req.email
+console.log(email,list)
+
+
+const result = await todatas.create({
+    email,
+    list
 })
+if(result)
+    {
+        res.json({
+            success:true,
+            msg:'Successfully updated data'
+        })
+    }
+    else
+    {
+        res.json({
+            success:false,
+            msg:'Error in updating '
+        })
+    }
 
 })
 
 // creating end point to delete data to endpoint
 
-router.post('/deleteitem',fetchuser,(req,res)=>{
+router.post('/deleteitem',fetchuser,async (req,res)=>{
 
 })
 
@@ -160,7 +182,7 @@ router.post('/update',fetchuser,(req,res)=>{
 // display all items 
 
 router.get('/display',fetchuser,async(req,res)=>{
-    const userdata = await User.findOne({
+    const userdata = await todatas.findOne({
         email:req.email
     })
     res.json(
