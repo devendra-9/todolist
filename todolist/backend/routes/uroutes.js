@@ -181,12 +181,13 @@ router.post('/update',fetchuser,(req,res)=>{
 
 // display all items 
 
-router.get('/display',fetchuser,async(req,res)=>{
-    const userdata = await todatas.findOne({
+router.get('/displaydata',fetchuser,async(req,res)=>{
+    const userdata = await todatas.find({
         email:req.email
     })
+    // console.log("Reached display data ",userdata[0].list);
     res.json(
-        userdata.list
+        userdata
     )
 })
 module.exports = router;

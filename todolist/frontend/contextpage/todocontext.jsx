@@ -1,9 +1,30 @@
-import React , { Children, createContext } from "react";
+import React , { Children, createContext, useEffect } from "react";
 
 export const Todocontext = createContext(null);
 
 const Todocontextprovider = (props) =>
     {
+        // const display = () =>
+        //     {
+        //         let newdata;
+        //         console.log("reached the display login");
+        //         fetch('http://localhost:4000/user/displaydata')
+        //         .then((response)=>response.json())
+        //         .then((data)=>{
+        //             console.log("display : some data is here",data);
+        //             newdata = data;
+        //             if(newdata)
+        //                 {
+        //                     return newdata;
+        //                 }
+        //                 else
+        //                 {
+        //                     return null;
+        //                 }
+        //         })
+
+        //     }
+        
         const adddata =(listt) =>
             {
               console.log('Your todo list is ',listt);
@@ -18,25 +39,25 @@ const Todocontextprovider = (props) =>
                 body:JSON.stringify(listt),
               })
               .then((response)=>response.json())
-              .then((data)=>responsedata=data)
-              if(responsedata.success)
-                {
-                return true;
-                }
-                else
-                {
-                return false;
-                }
+              .then((data)=>{
+                console.log(data.success)
+                    if(data.success)
+                        {
+                            alert("success");
+                        }
+                        else
+                        {
+                            alert("something went wrong")
+                        }
+                })
           }
-          const display = () =>
-            {
-                
-            }
+
+        
           const deletedata = () =>
             {
 
             }  
-          const contextvalue = {adddata,display,deletedata};
+          const contextvalue = {adddata,deletedata};
 
 
 

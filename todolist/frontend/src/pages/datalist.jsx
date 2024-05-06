@@ -10,61 +10,33 @@ const datalist = () => {
     list:""
   })
 
+  const [details,setdetails] = useState([]);
+  const [dlength,setdlength] = useState();
+  let newdata;
+
   const changehandler = (e)=>
     {
       setlistt({...listt,[e.target.name]:e.target.value})
     }
 
-  // const adddata =async () =>
-  //   {
-  //     console.log('Your todo list is ',listt);
-  //     let responsedata;
-  //     await fetch('http://localhost:4000/user/additem',{
-  //       method:'PUT',
-  //       headers:
-  //       {
-  //         Accept:'application/form-data',
-  //         'Content-Type':'application/json',
-  //       },
-  //       body:JSON.stringify(listt),
-  //     })
-  //     .then((response)=>response.json())
-  //     .then((data)=>responsedata=data)
-  //     if(responsedata.success)
-  //       {
-  //       setlistt({
-  //       list:''
-  //     });
-  //     alert("successful")
-  //     // const x = document.getElementById("form");
-  //     // x.reset();
-  //   }
-  //   else
-  //   {
-  //     setlistt({
-  //       list:''
-  //     });
-  //     alert("Something went wrong")
-  //   }
-  // }
+    useEffect(()=>{
+      console.log("reached the display login");
+      fetch('http://localhost:4000/user/displaydata')
+      .then((response)=>response.json())
+      .then((data)=>{
+          console.log("display main : some data is here",data.length);
+          setdlength(data.length);
+          setdetails(data);
+      })
+
+    },[])
+    console.log("reached the main page",details)
+    console.log("the length is ",dlength)
 
   const adding = () =>
     {
-      const result = adddata(listt);
-      if(result)
-        {
-          setlistt({
-            list:''
-          });
-          alert("successful")
-        }
-        else
-        {
-          setlistt({
-            list:''
-          });
-          alert("something went wrong")
-        }
+      adddata(listt);
+      
     }
   
   return (
@@ -76,6 +48,16 @@ const datalist = () => {
       </div>
       <div className="display-todo">
       <h1>ALL TODS LIST</h1>
+      </div>
+      <div className='displaydetails'>
+        {dlength==0? 
+         <h1> No Record Found </h1>
+         : 
+         details.map(details=>(<div className='aligndata'>
+         <p>{details.list}</p>
+         <button>Mark as Complete</button></div>
+        ))
+         }
       </div>
       </div>
     </div>
