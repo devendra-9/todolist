@@ -4,7 +4,7 @@ import {Todocontext} from '../../contextpage/todocontext'
 
 const datalist = () => {
 
-  const { adddata } = useContext(Todocontext);
+  const { adddata,deletedata } = useContext(Todocontext);
 
   const [listt,setlistt] = useState({
     list:""
@@ -20,6 +20,7 @@ const datalist = () => {
     }
 
     useEffect(()=>{
+      setInterval(()=>{
       console.log("reached the display login");
       fetch('http://localhost:4000/user/displaydata')
       .then((response)=>response.json())
@@ -28,6 +29,7 @@ const datalist = () => {
           setdlength(data.length);
           setdetails(data);
       })
+    },1000)
 
     },[])
     console.log("reached the main page",details)
@@ -38,6 +40,10 @@ const datalist = () => {
       adddata(listt);
       
     }
+    const deletee = (id) =>
+      {
+        deletedata(id);
+      }
   
   return (
     <div className='details-main'>
@@ -50,12 +56,12 @@ const datalist = () => {
       <h1>ALL TODS LIST</h1>
       </div>
       <div className='displaydetails'>
-        {dlength==0? 
+        {dlength<1? 
          <h1> No Record Found </h1>
          : 
-         details.map(details=>(<div className='aligndata'>
+         details.map(details=>(<div className='aligndata' key="{details._id}">
          <p>{details.list}</p>
-         <button>Mark as Complete</button></div>
+         <button onClick={()=>deletee(details._id)}>Mark as Complete</button></div>
         ))
          }
       </div>
