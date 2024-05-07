@@ -29,7 +29,7 @@ const datalist = () => {
           setdlength(data.length);
           setdetails(data);
       })
-    },1000)
+    },100)
 
     },[])
     console.log("reached the main page",details)
@@ -42,6 +42,7 @@ const datalist = () => {
     }
     const deletee = (id) =>
       {
+        console.log("delete button initiated with : ", id)
         deletedata(id);
       }
   
@@ -59,7 +60,7 @@ const datalist = () => {
         {dlength<1? 
          <h1> No Record Found </h1>
          : 
-         details.map(details=>(<div className='aligndata' key="{details._id}">
+         details.map(details=>(<div className='aligndata'>
          <p>{details.list}</p>
          <button onClick={()=>deletee(details._id)}>Mark as Complete</button></div>
         ))

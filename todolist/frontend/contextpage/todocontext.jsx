@@ -56,25 +56,19 @@ const Todocontextprovider = (props) =>
           const deletedata = (id) =>
             {
                 fetch('http://localhost:4000/user/deleteitem/'+id,{
-                    method:'DELETE',
-                    headers:
+                    method:'DELETE'
+            })
+            .then((response)=>response.json())
+            .then((data)=>{
+                if(data.success)
                     {
-                      Accept:'application/form-data',
-                      'Content-Type':'application/json',
-                    },
-                    body:"",
-                })
-                .then((response)=>response.json())
-                .then((data)=>{
-                    if(data.success)
-                        {
-                            console.log('successfully deleted')
-                        }
+                        console.log("deleted successfully")
+                    }
                     else
                     {
-                        console.log('something went wrong ')
-                    }    
-                })
+                        console.log("Something went wrong")
+                    }
+            })
             }  
           const contextvalue = {adddata,deletedata};
 

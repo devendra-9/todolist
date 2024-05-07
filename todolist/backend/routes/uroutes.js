@@ -169,24 +169,38 @@ if(result)
 
 // creating end point to delete data to endpoint
 
-router.delete('/deleteitem/:id',(req,res)=>{
+router.delete('/deleteitem/:id',async (req,res)=>{
     const {id} = req.params;
     console.log(id)
-   const result = todatas.findByIdAndDelete({
+   let userdata = await todatas.findOne({
+    _id:id
+   })
+   if (userdata)
+    {
+        let deleteres = await todatas.deleteOne({
             _id:id
         })
-   if (result)
-    {
-        res.json({
-            success:true,
-            msg:"successfully deleted"
-        })
+        if(deleteres)
+            {
+                res.json({
+                    success:true,
+                    msg:"successfully deleted"
+                })
+            }
+            else
+            {
+                res.json({
+                    success:false,
+                    msg:"something went wrong"
+                })
+            }
+
     }
     else
     {
         res.json({
             success:false,
-            msg:"error in deleting"
+            msg:"no data found"
         })
     }
 })
